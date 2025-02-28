@@ -12,13 +12,17 @@ from sdsprint import utils
 with open("data/geom/cable-geo.json") as f:
     cable_geo = json.load(f)
 cables = gpd.read_file("data/geom/cable-geo.json")
-cables = cables.to_crs("EPSG:25832")
+csr = "EPSG:25833"
+cables = cables.to_crs(csr)
 cables = cables[cables.geometry.is_valid]
 
-eagle = utils.read_eagle("data/aisdk-2024-1h.parquet").pipe(utils.to_gdf)
+eagle = utils.read_eagle("data/aisdk-2024-1h.parquet").pipe(
+    utils.to_gdf,
+    csr=csr,
+)
 
 danish_waters = gpd.read_file("data/geom/dk-shape2/dk.shp")
-danish_waters = danish_waters.to_crs("EPSG:25832")
+danish_waters = danish_waters.to_crs(csr)
 
 # spatial join cables + Danish waters
 joined = gpd.sjoin(cables, danish_waters, how="inner", predicate="intersects")
