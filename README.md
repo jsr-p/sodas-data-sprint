@@ -48,6 +48,10 @@ Schema([('MMSI', String),
   [tresorit](https://tresorit.com/) using the script
   [here](scripts/zip_proc.py)
 
+### Reading a slice of it
+
+- See [script](scripts/load.py)
+
 ### Inspect 2024
 
 - See [script](scripts/queries.py)
@@ -82,5 +86,7 @@ Schema([('MMSI', String),
 
 ```bash
 uv venv
+# On Windows replace with: .venv\Scripts\activate
+source .venv/bin/activate
 uv pip install -e .
 ```
